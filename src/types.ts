@@ -6,6 +6,19 @@ export const MenuSchema = z.object({
 })
 
 export type MenuType = z.infer<typeof MenuSchema>
+
 export interface MenuItem extends MenuType {
   id: number
+}
+
+export interface OrderItem extends MenuItem {
+  quantity: string
+}
+
+export interface OrderRecord {
+  id: string
+  items: OrderItem[]
+  total: number
+  created_at: string
+  recived_account: string
 }

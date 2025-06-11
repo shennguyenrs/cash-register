@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue } from "jotai"
 import { motion } from "motion/react"
 
-import { searchMenuItemAtom, selectedMenuItemIdxAtom } from "@/atoms"
+import { searchMenuItemAtom, selectedMenuItemIdAtom } from "@/atoms"
 import { cn } from "@/lib/utils"
 import type { MenuItem } from "@/types"
 
@@ -10,15 +10,15 @@ interface FoodCardProps {
 }
 
 export default function FoodCard({ item }: FoodCardProps) {
-  const [selectedIdx, setSelectedIdx] = useAtom(selectedMenuItemIdxAtom)
+  const [selectedId, setSelectedId] = useAtom(selectedMenuItemIdAtom)
   const searchTerm = useAtomValue(searchMenuItemAtom)
 
   function handleToggleSelectItem() {
-    if (selectedIdx === item.id) {
-      setSelectedIdx(0)
+    if (selectedId === item.id) {
+      setSelectedId(0)
       return
     }
-    setSelectedIdx(item.id)
+    setSelectedId(item.id)
   }
 
   function highlightSearchTerm(text: string, term: string) {
@@ -47,7 +47,7 @@ export default function FoodCard({ item }: FoodCardProps) {
       <div
         className={cn(
           "relative min-h-[80px] rounded-md border-2 border-solid p-1",
-          selectedIdx === item.id && "bg-neutral-800 text-white",
+          selectedId === item.id && "bg-neutral-800 text-white",
         )}
         onClick={handleToggleSelectItem}
       >

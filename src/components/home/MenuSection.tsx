@@ -4,7 +4,7 @@ import { useState, type ChangeEvent } from "react"
 import { useTranslation } from "react-i18next"
 import { AnimatePresence } from "motion/react"
 
-import { menuListAtom, searchMenuItemAtom, selectedMenuItemIdxAtom } from "@/atoms"
+import { menuListAtom, searchMenuItemAtom, selectedMenuItemIdAtom } from "@/atoms"
 import { AnimatedButton } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
@@ -20,7 +20,7 @@ export default function MenuSection() {
   const [inputValue, setInputValue] = useState("")
   const [openCreateDialog, setOpenCreateDialog] = useState(false)
   const [menu, setMenu] = useAtom(menuListAtom)
-  const [selectedIdx, setSelectedIdx] = useAtom(selectedMenuItemIdxAtom)
+  const [selectedId, setSelectedId] = useAtom(selectedMenuItemIdAtom)
   const [searchTerm, setSearchTerm] = useAtom(searchMenuItemAtom)
 
   function handleSubmit(values: MenuType) {
@@ -32,9 +32,9 @@ export default function MenuSection() {
 
   function handleRemoveMenuItem() {
     let newList = [...menu]
-    newList = newList.filter((i) => i.id !== selectedIdx)
+    newList = newList.filter((i) => i.id !== selectedId)
     setMenu(newList)
-    setSelectedIdx(0)
+    setSelectedId(0)
   }
 
   function handleOnSearchChange(e: ChangeEvent<HTMLInputElement>) {
@@ -78,7 +78,7 @@ export default function MenuSection() {
         <AnimatedButton
           onClick={handleRemoveMenuItem}
           className="bg-red-400"
-          disabled={selectedIdx === 0}
+          disabled={selectedId === 0}
         >
           <IconTrash />
         </AnimatedButton>
