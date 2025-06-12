@@ -1,4 +1,9 @@
-import { IconBackspace, IconPlus, IconTrash } from "@tabler/icons-react"
+import {
+  IconBackspace,
+  IconPlus,
+  IconTrash,
+  IconPencil,
+} from "@tabler/icons-react"
 import { useAtom } from "jotai"
 import { AnimatePresence } from "motion/react"
 import { useState, type ChangeEvent } from "react"
@@ -29,9 +34,19 @@ export default function MenuSection() {
   const [searchTerm, setSearchTerm] = useAtom(searchMenuItemAtom)
 
   function handleSubmit(values: MenuType) {
-    const id = uuid()
-    const newList = [...menu, { ...values, id }] as MenuItem[]
-    setMenu(newList)
+    // Handling editing item
+    if (selectedId) {
+      const newList = [...menu]
+      const index = newList.findIndex((i) => i.id === selectedId)
+      newList[index] = { ...values, id: selectedId }
+      setMenu(newList)
+    } else {
+      // Handling adding new item
+      const id = uuid()
+      const newList = [...menu, { ...values, id }] as MenuItem[]
+      setMenu(newList)
+    }
+
     setOpenCreateDialog(false)
   }
 
@@ -56,6 +71,7 @@ export default function MenuSection() {
   }
 
   const filteredMenu = menu.filter((i) => i.name.includes(searchTerm))
+  const selectedItem = menu.find((i) => i.id === selectedId) ?? undefined
 
   return (
     <div className="relative overflow-y-scroll rounded-md border-2 border-solid">
@@ -78,12 +94,12 @@ export default function MenuSection() {
           <IconBackspace />
         </AnimatedButton>
         <AnimatedButton onClick={() => setOpenCreateDialog(true)}>
-          <IconPlus />
+          {selectedId ? <IconPencil /> : <IconPlus />}
         </AnimatedButton>
         <AnimatedButton
           onClick={handleRemoveMenuItem}
           className="bg-red-400"
-          disabled={Boolean(selectedId)}
+          disabled={!selectedId}
         >
           <IconTrash />
         </AnimatedButton>
@@ -92,6 +108,7 @@ export default function MenuSection() {
         open={openCreateDialog}
         onOpenChange={setOpenCreateDialog}
         onSubmit={handleSubmit}
+        selectedItem={selectedItem}
       />
     </div>
   )

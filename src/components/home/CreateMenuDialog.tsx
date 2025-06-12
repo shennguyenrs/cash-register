@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useEffect } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { NumericFormat } from "react-number-format"
@@ -21,20 +22,21 @@ interface CreateMenuDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   onSubmit: (values: MenuType) => void
+  selectedItem?: MenuType
 }
+
+const defaultValues = { name: "", price: "0" }
 
 export default function CreateMenuDialog({
   open,
   onOpenChange,
   onSubmit,
+  selectedItem,
 }: CreateMenuDialogProps) {
   const { t } = useTranslation()
 
   const method = useForm<MenuType>({
-    defaultValues: {
-      name: "",
-      price: "0",
-    },
+    defaultValues,
     resolver: zodResolver(MenuSchema),
   })
   const { control, register, handleSubmit, reset } = method
@@ -43,13 +45,24 @@ export default function CreateMenuDialog({
     handleSubmit(
       (values: MenuType) => {
         onSubmit(values)
-        reset()
       },
       (errors) => {
         console.log("Form errors:", errors)
       },
     )()
   }
+
+  useEffect(() => {
+    if (selectedItem) {
+      reset(selectedItem)
+    }
+  }, [selectedItem])
+
+  useEffect(() => {
+    if (!open) {
+      reset(defaultValues)
+    }
+  }, [open])
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
