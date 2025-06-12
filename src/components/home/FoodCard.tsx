@@ -15,7 +15,7 @@ export default function FoodCard({ item }: FoodCardProps) {
 
   function handleToggleSelectItem() {
     if (selectedId === item.id) {
-      setSelectedId(0)
+      setSelectedId("")
       return
     }
     setSelectedId(item.id)

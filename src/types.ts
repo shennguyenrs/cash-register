@@ -8,7 +8,7 @@ export const MenuSchema = z.object({
 export type MenuType = z.infer<typeof MenuSchema>
 
 export interface MenuItem extends MenuType {
-  id: number
+  id: string
 }
 
 export interface OrderItem extends MenuItem {

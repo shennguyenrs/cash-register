@@ -1,10 +1,15 @@
 import { IconBackspace, IconPlus, IconTrash } from "@tabler/icons-react"
 import { useAtom } from "jotai"
+import { AnimatePresence } from "motion/react"
 import { useState, type ChangeEvent } from "react"
 import { useTranslation } from "react-i18next"
-import { AnimatePresence } from "motion/react"
+import { v4 as uuid } from "uuid"
 
-import { menuListAtom, searchMenuItemAtom, selectedMenuItemIdAtom } from "@/atoms"
+import {
+  menuListAtom,
+  searchMenuItemAtom,
+  selectedMenuItemIdAtom,
+} from "@/atoms"
 import { AnimatedButton } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
@@ -24,8 +29,8 @@ export default function MenuSection() {
   const [searchTerm, setSearchTerm] = useAtom(searchMenuItemAtom)
 
   function handleSubmit(values: MenuType) {
-    const newId = menu.length + 1
-    const newList = [...menu, { ...values, id: newId }] as MenuItem[]
+    const id = uuid()
+    const newList = [...menu, { ...values, id }] as MenuItem[]
     setMenu(newList)
     setOpenCreateDialog(false)
   }
@@ -34,7 +39,7 @@ export default function MenuSection() {
     let newList = [...menu]
     newList = newList.filter((i) => i.id !== selectedId)
     setMenu(newList)
-    setSelectedId(0)
+    setSelectedId("")
   }
 
   function handleOnSearchChange(e: ChangeEvent<HTMLInputElement>) {
@@ -78,7 +83,7 @@ export default function MenuSection() {
         <AnimatedButton
           onClick={handleRemoveMenuItem}
           className="bg-red-400"
-          disabled={selectedId === 0}
+          disabled={Boolean(selectedId)}
         >
           <IconTrash />
         </AnimatedButton>
