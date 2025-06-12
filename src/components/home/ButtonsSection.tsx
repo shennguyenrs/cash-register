@@ -1,6 +1,9 @@
+import { useAtomValue } from "jotai"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
+import { newOrderAtom } from "@/atoms"
+import { AnimatedButton } from "@/components/ui/button"
 import {
   IconDownload,
   IconReceipt,
@@ -9,12 +12,12 @@ import {
   IconUpload,
   IconUser,
 } from "@tabler/icons-react"
-import { AnimatedButton } from "@/components/ui/button"
 
 import ResetAllStateDialog from "./ResetAllStateDialog"
 
 export default function ButtonsSection() {
   const { t } = useTranslation()
+  const currentOrder = useAtomValue(newOrderAtom)
 
   const [openResetDialog, setOpenResetDialog] = useState(false)
 
@@ -42,15 +45,18 @@ export default function ButtonsSection() {
           {t("home.upload_csv_btn")}
         </AnimatedButton>
         <AnimatedButton
-          className="bg-red-400"
           onClick={() => setOpenResetDialog(true)}
+          variant="destructive"
         >
           <IconRefresh />
           {t("home.reset_btn")}
         </AnimatedButton>
       </div>
       <div className="col-span-1">
-        <AnimatedButton className="w-full bg-emerald-400">
+        <AnimatedButton
+          className="w-full bg-emerald-400"
+          disabled={currentOrder.length === 0}
+        >
           {t("home.pay_btn")}
         </AnimatedButton>
       </div>

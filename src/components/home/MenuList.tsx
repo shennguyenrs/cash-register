@@ -1,3 +1,4 @@
+import { AnimatePresence } from "motion/react"
 import { useTranslation } from "react-i18next"
 
 import type { MenuItem } from "@/types"
@@ -23,9 +24,11 @@ export default function MenuList({ items }: MenuListProps) {
 
   return (
     <div className="grid grid-cols-2 gap-2 p-2">
-      {items.map((item) => (
-        <FoodCard key={item.id} item={item} />
-      ))}
+      <AnimatePresence>
+        {items.map((item) => (
+          <FoodCard key={item.id} item={item} />
+        ))}
+      </AnimatePresence>
     </div>
   )
 }

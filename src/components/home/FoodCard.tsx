@@ -27,7 +27,7 @@ export default function FoodCard({ item }: FoodCardProps) {
     const parts = text.split(regex)
     return parts.map((part, i) =>
       regex.test(part) ? (
-        <span key={i} className="bg-yellow-300 text-black">
+        <span key={i} className="bg-amber-500 text-black">
           {part}
         </span>
       ) : (
@@ -38,9 +38,9 @@ export default function FoodCard({ item }: FoodCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0 }}
+      initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0 }}
+      exit={{ opacity: 0, scale: 0.5 }}
       key={item.id}
       layout
     >

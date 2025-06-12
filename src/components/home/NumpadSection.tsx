@@ -1,14 +1,20 @@
 import { IconBackspace } from "@tabler/icons-react"
-import { useAtomValue, useSetAtom } from "jotai"
-import { useState } from "react"
+import { useAtom, useAtomValue, useSetAtom } from "jotai"
 
-import { menuListAtom, newOrderAtom, selectedMenuItemIdAtom } from "@/atoms"
+import {
+  menuListAtom,
+  newOrderAtom,
+  numpadInputValueAtom,
+  selectedMenuItemIdAtom,
+} from "@/atoms"
 import { AnimatedButton } from "@/components/ui/button"
 import type { OrderItem } from "@/types"
 
 export default function NumpadSection() {
-  const [inputValue, setInputValue] = useState("0")
-  const selectedMenuItemId = useAtomValue(selectedMenuItemIdAtom)
+  const [inputValue, setInputValue] = useAtom(numpadInputValueAtom)
+  const [selectedMenuItemId, setSelectedMenuItemId] = useAtom(
+    selectedMenuItemIdAtom,
+  )
   const menu = useAtomValue(menuListAtom)
   const setNewOrder = useSetAtom(newOrderAtom)
 
@@ -38,10 +44,11 @@ export default function NumpadSection() {
     } as OrderItem
     setNewOrder((prev) => [...prev, newOrder])
     setInputValue("0")
+    setSelectedMenuItemId("")
   }
 
   return (
-    <>
+    <div className="rounded-md border-2 border-solid">
       <div className="m-2 rounded-md border-2 border-solid p-4 text-right text-4xl">
         {inputValue}
       </div>
@@ -65,18 +72,18 @@ export default function NumpadSection() {
         </AnimatedButton>
         <AnimatedButton
           onClick={handleBackspace}
-          className="h-full w-full bg-amber-500 hover:bg-amber-300"
+          className="h-full w-full bg-amber-500 hover:bg-amber-500/90"
         >
           <IconBackspace className="!h-12 !w-12" />
         </AnimatedButton>
         <AnimatedButton
           onClick={handleEnter}
           className="h-full w-full bg-emerald-400 text-4xl hover:bg-emerald-300"
-          disabled={!selectedMenuItemId}
+          disabled={!selectedMenuItemId || inputValue === "0"}
         >
           Enter
         </AnimatedButton>
       </div>
-    </>
+    </div>
   )
 }

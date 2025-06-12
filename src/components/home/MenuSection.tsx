@@ -1,11 +1,11 @@
 import {
   IconBackspace,
+  IconPencil,
   IconPlus,
   IconTrash,
-  IconPencil,
 } from "@tabler/icons-react"
 import { useAtom } from "jotai"
-import { AnimatePresence } from "motion/react"
+
 import { useState, type ChangeEvent } from "react"
 import { useTranslation } from "react-i18next"
 import { v4 as uuid } from "uuid"
@@ -75,9 +75,7 @@ export default function MenuSection() {
 
   return (
     <div className="relative overflow-y-scroll rounded-md border-2 border-solid">
-      <AnimatePresence>
-        <MenuList items={filteredMenu} />
-      </AnimatePresence>
+      <MenuList items={filteredMenu} />
       <div
         className={cn(
           "bg-opacity-0 bottom-0 flex w-full gap-2 rounded-tl-md rounded-tr-md bg-neutral-100 p-2 backdrop-blur-sm backdrop-filter",
@@ -98,7 +96,7 @@ export default function MenuSection() {
         </AnimatedButton>
         <AnimatedButton
           onClick={handleRemoveMenuItem}
-          className="bg-red-400"
+          variant="destructive"
           disabled={!selectedId}
         >
           <IconTrash />
