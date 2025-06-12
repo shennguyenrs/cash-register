@@ -16,6 +16,9 @@ export const orderRecordsAtom = atomWithStorage<OrderRecord[]>(
   [],
 )
 
+export const receivedAccountAtom = atom<string[]>([])
+export const lastUsedAccountIdxAtom = atom(-1)
+
 export const resetAllAtoms = atom(null, (_, set) => {
   set(menuListAtom, [])
   set(selectedMenuItemIdAtom, "")

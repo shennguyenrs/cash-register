@@ -13,6 +13,8 @@ import {
   IconUser,
 } from "@tabler/icons-react"
 
+import ManageReceiveAccountDialog from "./ManageReceiveAccountDialog"
+import PaymentConfirmDialog from "./PaymentConfirmDialog"
 import ResetAllStateDialog from "./ResetAllStateDialog"
 
 export default function ButtonsSection() {
@@ -20,6 +22,9 @@ export default function ButtonsSection() {
   const currentOrder = useAtomValue(newOrderAtom)
 
   const [openResetDialog, setOpenResetDialog] = useState(false)
+  const [openReceiveAccountDialog, setOpenReceiveAccountDialog] =
+    useState(false)
+  const [openPaymentDialog, setOpenPaymentDialog] = useState(false)
 
   return (
     <>
@@ -28,7 +33,7 @@ export default function ButtonsSection() {
           <IconReport />
           {t("home.report_btn")}
         </AnimatedButton>
-        <AnimatedButton>
+        <AnimatedButton onClick={() => setOpenReceiveAccountDialog(true)}>
           <IconUser />
           {t("home.manage_receive_account_btn")}
         </AnimatedButton>
@@ -55,6 +60,7 @@ export default function ButtonsSection() {
       <div className="col-span-1">
         <AnimatedButton
           className="w-full bg-emerald-400"
+          onClick={() => setOpenPaymentDialog(true)}
           disabled={currentOrder.length === 0}
         >
           {t("home.pay_btn")}
@@ -63,6 +69,14 @@ export default function ButtonsSection() {
       <ResetAllStateDialog
         open={openResetDialog}
         onOpenChange={setOpenResetDialog}
+      />
+      <ManageReceiveAccountDialog
+        open={openReceiveAccountDialog}
+        onOpenChange={setOpenReceiveAccountDialog}
+      />
+      <PaymentConfirmDialog
+        open={openPaymentDialog}
+        onOpenChange={setOpenPaymentDialog}
       />
     </>
   )
