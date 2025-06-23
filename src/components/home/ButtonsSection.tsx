@@ -1,9 +1,3 @@
-import { useAtomValue } from "jotai"
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
-
-import { newOrderAtom } from "@/atoms"
-import { AnimatedButton } from "@/components/ui/button"
 import {
   IconDownload,
   IconReceipt,
@@ -12,6 +6,13 @@ import {
   IconUpload,
   IconUser,
 } from "@tabler/icons-react"
+import { useNavigate } from "@tanstack/react-router"
+import { useAtomValue } from "jotai"
+import { useState } from "react"
+import { useTranslation } from "react-i18next"
+
+import { newOrderAtom } from "@/atoms"
+import { AnimatedButton } from "@/components/ui/button"
 
 import ManageReceiveAccountDialog from "./ManageReceiveAccountDialog"
 import PaymentConfirmDialog from "./PaymentConfirmDialog"
@@ -20,6 +21,7 @@ import ResetAllStateDialog from "./ResetAllStateDialog"
 export default function ButtonsSection() {
   const { t } = useTranslation()
   const currentOrder = useAtomValue(newOrderAtom)
+  const navigate = useNavigate()
 
   const [openResetDialog, setOpenResetDialog] = useState(false)
   const [openReceiveAccountDialog, setOpenReceiveAccountDialog] =
@@ -29,7 +31,7 @@ export default function ButtonsSection() {
   return (
     <>
       <div className="col-span-2 flex flex-wrap gap-2">
-        <AnimatedButton>
+        <AnimatedButton onClick={() => navigate({ to: "/report" })}>
           <IconReport />
           {t("home.report_btn")}
         </AnimatedButton>

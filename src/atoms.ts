@@ -16,7 +16,10 @@ export const orderRecordsAtom = atomWithStorage<OrderRecord[]>(
   [],
 )
 
-export const receivedAccountAtom = atom<string[]>([])
+export const receivedAccountAtom = atomWithStorage<string[]>(
+  "received-accounts",
+  [],
+)
 export const lastUsedAccountIdxAtom = atom(-1)
 
 export const resetAllAtoms = atom(null, (_, set) => {

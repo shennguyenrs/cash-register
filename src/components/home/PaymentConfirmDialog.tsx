@@ -62,7 +62,7 @@ export default function PaymentConfirmDialog({
       id: uuid(),
       items: newOrder,
       total,
-      created_at: format(timestamp, "yyyy-MM-dd HH:mm:ss"),
+      created_at: format(timestamp, "yyyy-MM-dd'T'HH:mm:ss"),
       recived_account: selectedAccount,
     }
 
@@ -80,10 +80,7 @@ export default function PaymentConfirmDialog({
             {t("home.payment_confirm_dialog_desc")}
           </DialogDescription>
         </DialogHeader>
-        <Select
-          value={selectedAccount}
-          onValueChange={setSelectedAccount}
-        >
+        <Select value={selectedAccount} onValueChange={setSelectedAccount}>
           <SelectTrigger className="w-full">
             <SelectValue
               placeholder={t("home.payment_select_account_placeholder")}
@@ -105,7 +102,10 @@ export default function PaymentConfirmDialog({
               {t("common.close_btn")}
             </AnimatedButton>
           </DialogClose>
-          <AnimatedButton onClick={handleConfirmPayment}>
+          <AnimatedButton
+            onClick={handleConfirmPayment}
+            disabled={receiveAccount.length === 0}
+          >
             {t("common.confirm_btn")}
           </AnimatedButton>
         </DialogFooter>
