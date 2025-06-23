@@ -33,7 +33,7 @@ export default function CreateMenuDialog({
   onSubmit,
   selectedItem,
 }: CreateMenuDialogProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(["common", "menu_section"])
 
   const method = useForm<MenuType>({
     defaultValues,
@@ -69,22 +69,16 @@ export default function CreateMenuDialog({
       <form onSubmit={handleFormSubmit}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>
-              {t("menu_section.create_menu_form_title")}
-            </DialogTitle>
+            <DialogTitle>{t("create_menu_form_title")}</DialogTitle>
             <DialogDescription></DialogDescription>
           </DialogHeader>
           <div className="grid gap-4">
             <div className="grid gap-3">
-              <Label htmlFor="menu-name">
-                {t("menu_section.form_menu_name")}
-              </Label>
+              <Label htmlFor="menu-name">{t("form_menu_name")}</Label>
               <Input {...register("name")} id="menu-name" />
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="nemu-price">
-                {t("menu_section.form_menu_price")}
-              </Label>
+              <Label htmlFor="nemu-price">{t("form_menu_price")}</Label>
               <Controller
                 control={control}
                 name="price"
@@ -103,11 +97,11 @@ export default function CreateMenuDialog({
           <DialogFooter>
             <DialogClose asChild>
               <AnimatedButton variant="outline">
-                {t("common.cancel_btn")}
+                {t("cancel_btn")}
               </AnimatedButton>
             </DialogClose>
             <AnimatedButton onClick={handleFormSubmit}>
-              {t("common.create_btn")}
+              {t("create_btn")}
             </AnimatedButton>
           </DialogFooter>
         </DialogContent>

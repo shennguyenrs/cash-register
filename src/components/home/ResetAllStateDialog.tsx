@@ -22,7 +22,7 @@ export default function ResetAllStatesDaialog({
   open,
   onOpenChange,
 }: ResetAllStateDialogProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(["home", "common"])
 
   const setResetAllstate = useSetAtom(resetAllAtoms)
 
@@ -35,19 +35,17 @@ export default function ResetAllStatesDaialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{t("home.reset_all_state_dialog_title")}</DialogTitle>
+          <DialogTitle>{t("reset_all_state_dialog_title")}</DialogTitle>
           <DialogDescription>
-            {t("home.reset_all_state_dialog_desc")}
+            {t("reset_all_state_dialog_desc")}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <AnimatedButton variant="outline">
-              {t("common.cancel_btn")}
-            </AnimatedButton>
+            <AnimatedButton variant="outline">{t("cancel_btn")}</AnimatedButton>
           </DialogClose>
           <AnimatedButton onClick={handleConfirm}>
-            {t("common.confirm_btn")}
+            {t("confirm_btn")}
           </AnimatedButton>
         </DialogFooter>
       </DialogContent>

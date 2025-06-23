@@ -19,7 +19,7 @@ import PaymentConfirmDialog from "./PaymentConfirmDialog"
 import ResetAllStateDialog from "./ResetAllStateDialog"
 
 export default function ButtonsSection() {
-  const { t } = useTranslation()
+  const { t } = useTranslation("home")
   const currentOrder = useAtomValue(newOrderAtom)
   const navigate = useNavigate()
 
@@ -33,30 +33,30 @@ export default function ButtonsSection() {
       <div className="col-span-2 flex flex-wrap gap-2">
         <AnimatedButton onClick={() => navigate({ to: "/report" })}>
           <IconReport />
-          {t("home.report_btn")}
+          {t("report_btn")}
         </AnimatedButton>
         <AnimatedButton onClick={() => setOpenReceiveAccountDialog(true)}>
           <IconUser />
-          {t("home.manage_receive_account_btn")}
+          {t("manage_receive_account_btn")}
         </AnimatedButton>
         <AnimatedButton>
           <IconReceipt />
-          {t("home.add_expense_btn")}
+          {t("add_expense_btn")}
         </AnimatedButton>
         <AnimatedButton>
           <IconDownload />
-          {t("home.download_csv_btn")}
+          {t("download_csv_btn")}
         </AnimatedButton>
         <AnimatedButton>
           <IconUpload />
-          {t("home.upload_csv_btn")}
+          {t("upload_csv_btn")}
         </AnimatedButton>
         <AnimatedButton
           onClick={() => setOpenResetDialog(true)}
           variant="destructive"
         >
           <IconRefresh />
-          {t("home.reset_btn")}
+          {t("reset_btn")}
         </AnimatedButton>
       </div>
       <div className="col-span-1">
@@ -65,7 +65,7 @@ export default function ButtonsSection() {
           onClick={() => setOpenPaymentDialog(true)}
           disabled={currentOrder.length === 0}
         >
-          {t("home.pay_btn")}
+          {t("pay_btn")}
         </AnimatedButton>
       </div>
       <ResetAllStateDialog

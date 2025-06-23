@@ -22,7 +22,7 @@ import {
 import { parseCreatedAt } from "@/lib/utils"
 
 export default function SalesLineChart() {
-  const { t } = useTranslation()
+  const { t } = useTranslation("report")
   const orderRecords = useAtomValue(orderRecordsAtom)
   const [timeRange, setTimeRange] = useState("6")
 
@@ -66,15 +66,15 @@ export default function SalesLineChart() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-end gap-2">
-        <span>{t("report.time_range")}</span>
+        <span>{t("time_range")}</span>
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger className="w-40">
-            <SelectValue placeholder={t("report.select_last_hours")} />
+            <SelectValue placeholder={t("select_last_hours")} />
           </SelectTrigger>
           <SelectContent>
             {[1, 3, 6, 12].map((hours) => (
               <SelectItem key={hours} value={hours.toString()}>
-                {t("report.last_hours", { hours })}
+                {t("last_hours", { hours })}
               </SelectItem>
             ))}
           </SelectContent>

@@ -26,7 +26,7 @@ export default function ManageReceiveAccountDialog({
   open,
   onOpenChange,
 }: ManageReceiveAccountDialogProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(["home", "common"])
   const [receiveAccount, setReceiveAccount] = useAtom(receivedAccountAtom)
   const [input, setInput] = useState("")
 
@@ -39,11 +39,9 @@ export default function ManageReceiveAccountDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>
-            {t("home.manage_receive_account_dialog_title")}
-          </DialogTitle>
+          <DialogTitle>{t("manage_receive_account_dialog_title")}</DialogTitle>
           <DialogDescription>
-            {t("home.manage_receive_account_dialog_desc")}
+            {t("manage_receive_account_dialog_desc")}
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-2">
@@ -69,9 +67,7 @@ export default function ManageReceiveAccountDialog({
         </div>
         <DialogFooter>
           <DialogClose asChild>
-            <AnimatedButton variant="outline">
-              {t("common.close_btn")}
-            </AnimatedButton>
+            <AnimatedButton variant="outline">{t("close_btn")}</AnimatedButton>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils"
 const MAX_HEIGHT_ITEMS = 25
 
 export default function OrderPreview() {
-  const { t } = useTranslation()
+  const { t } = useTranslation("preview_order_section")
   const [orderItems, setOrderItems] = useAtom(newOrderAtom)
   const [selectedOrderItemIdx, setSelectedOrderItemIdx] = useAtom(
     selectedOrderItemIdxAtom,
@@ -95,7 +95,7 @@ export default function OrderPreview() {
           </AnimatedButton>
         )}
         <div className="flex justify-between text-xl font-bold">
-          <p>{t("preview_order_section.total")}</p>
+          <p>{t("total")}</p>
           <p>€ {total.toFixed(2)}</p>
         </div>
       </div>

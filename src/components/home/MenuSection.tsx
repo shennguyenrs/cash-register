@@ -26,7 +26,7 @@ import MenuList from "./MenuList"
 const MAX_HEIGHT_ITEMS = 16
 
 export default function MenuSection() {
-  const { t } = useTranslation()
+  const { t } = useTranslation("menu_section")
   const [inputValue, setInputValue] = useState("")
   const [openCreateDialog, setOpenCreateDialog] = useState(false)
   const [menu, setMenu] = useAtom(menuListAtom)
@@ -84,7 +84,7 @@ export default function MenuSection() {
       >
         <Input
           type="text"
-          placeholder={t("menu_section.search_menu_placeholder")}
+          placeholder={t("search_menu_placeholder")}
           value={inputValue}
           onChange={handleOnSearchChange}
         />

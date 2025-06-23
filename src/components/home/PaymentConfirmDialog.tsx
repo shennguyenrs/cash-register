@@ -39,7 +39,7 @@ export default function PaymentConfirmDialog({
   open,
   onOpenChange,
 }: PaymentConfirmDialogProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(["home", "common"])
   const receiveAccount = useAtomValue(receivedAccountAtom)
   const [lastUsedAccountIdx, setLastUsedAccountIdx] = useAtom(
     lastUsedAccountIdxAtom,
@@ -75,15 +75,15 @@ export default function PaymentConfirmDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{t("home.payment_confirm_dialog_title")}</DialogTitle>
+          <DialogTitle>{t("payment_confirm_dialog_title")}</DialogTitle>
           <DialogDescription>
-            {t("home.payment_confirm_dialog_desc")}
+            {t("payment_confirm_dialog_desc")}
           </DialogDescription>
         </DialogHeader>
         <Select value={selectedAccount} onValueChange={setSelectedAccount}>
           <SelectTrigger className="w-full">
             <SelectValue
-              placeholder={t("home.payment_select_account_placeholder")}
+              placeholder={t("payment_select_account_placeholder")}
             />
           </SelectTrigger>
           <SelectContent>
@@ -98,15 +98,13 @@ export default function PaymentConfirmDialog({
         </Select>
         <DialogFooter>
           <DialogClose asChild>
-            <AnimatedButton variant="outline">
-              {t("common.close_btn")}
-            </AnimatedButton>
+            <AnimatedButton variant="outline">{t("close_btn")}</AnimatedButton>
           </DialogClose>
           <AnimatedButton
             onClick={handleConfirmPayment}
             disabled={receiveAccount.length === 0}
           >
-            {t("common.confirm_btn")}
+            {t("confirm_btn")}
           </AnimatedButton>
         </DialogFooter>
       </DialogContent>
