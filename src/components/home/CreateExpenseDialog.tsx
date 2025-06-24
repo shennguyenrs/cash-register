@@ -70,6 +70,7 @@ export default function CreateExpenseDialog({
           total: Number(values.price) * -1,
           created_at: format(timestamp, "yyyy-MM-dd'T'HH:mm:ss"),
           recived_account: values.received_account,
+          is_refunded: false,
         }
 
         setOrderRecords((prev) => [order, ...prev])

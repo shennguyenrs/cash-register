@@ -1,7 +1,7 @@
 import { IconArrowBackUp, IconTrash } from "@tabler/icons-react"
 import type { Row } from "@tanstack/react-table"
 import { format } from "date-fns"
-import { useSetAtom } from "jotai"
+import { useAtom } from "jotai"
 import { v4 as uuid } from "uuid"
 
 import { orderRecordsAtom } from "@/atoms"
@@ -13,21 +13,22 @@ interface ActionButtonsProps {
 }
 
 export default function ActionButtons({ row }: ActionButtonsProps) {
-  const setOrderRecords = useSetAtom(orderRecordsAtom)
+  const [orderRecords, setOrderRecords] = useAtom(orderRecordsAtom)
 
   const total = row.getValue("total") as number
   const recivedAccount = row.getValue("recived_account") as string
   const id = row.original.id
+  const canRefund = row.original.is_refunded
 
   function handleRefundOrder() {
     const timestamp = new Date()
 
-    const order: OrderRecord = {
+    const refundOrder: OrderRecord = {
       id: uuid(),
       items: [
         {
           id: uuid(),
-          name: `Refund order ${id}`,
+          name: id,
           quantity: "-1",
           price: total.toString(),
         },
@@ -35,19 +36,47 @@ export default function ActionButtons({ row }: ActionButtonsProps) {
       total: total * -1,
       created_at: format(timestamp, "yyyy-MM-dd'T'HH:mm:ss"),
       recived_account: recivedAccount,
+      is_refunded: false,
     }
 
-    setOrderRecords((prev) => [order, ...prev])
+    const markedOrderAsRefunded = {
+      ...row.original,
+      is_refunded: true,
+    }
+
+    const modifiedOrders = [refundOrder, ...orderRecords]
+
+    setOrderRecords(
+      modifiedOrders.map((order) =>
+        order.id === id ? markedOrderAsRefunded : order,
+      ),
+    )
   }
 
   function handleRemoveOrder() {
+    const originalOrderId = row.original.items[0].name
+    const originalOrderIdx = orderRecords.findIndex(
+      (order) => order.id === originalOrderId,
+    )
+
+    if (originalOrderIdx !== -1) {
+      const modifiedOrders = [...orderRecords]
+      modifiedOrders[originalOrderIdx].is_refunded = false
+      setOrderRecords(modifiedOrders.filter((order) => order.id !== id))
+      return
+    }
+
     setOrderRecords((records) => records.filter((record) => record.id !== id))
   }
 
   return (
     <div className="flex items-center gap-2">
       {total > 0 ? (
-        <AnimatedButton variant="outline" onClick={handleRefundOrder}>
+        <AnimatedButton
+          variant="outline"
+          onClick={handleRefundOrder}
+          disabled={canRefund}
+        >
           <IconArrowBackUp />
         </AnimatedButton>
       ) : (

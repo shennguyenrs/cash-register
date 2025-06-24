@@ -64,6 +64,7 @@ export default function PaymentConfirmDialog({
       total,
       created_at: format(timestamp, "yyyy-MM-dd'T'HH:mm:ss"),
       recived_account: selectedAccount,
+      is_refunded: false,
     }
 
     setOrderRecords((prev) => [order, ...prev])

@@ -29,4 +29,5 @@ export interface OrderRecord {
   total: number
   created_at: string
   recived_account: string
+  is_refunded: boolean
 }
