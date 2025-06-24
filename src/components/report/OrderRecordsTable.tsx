@@ -31,7 +31,10 @@ export default function OrderRecordsTable() {
   })
 
   return (
-    <div className="rounded-md border">
+    <div
+      data-slot="table-container"
+      className="relative max-h-[45vh] overflow-auto rounded-md border-2"
+    >
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -41,9 +44,9 @@ export default function OrderRecordsTable() {
                   {header.isPlaceholder
                     ? null
                     : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    )}
                 </TableHead>
               ))}
             </TableRow>
