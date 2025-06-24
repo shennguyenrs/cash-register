@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next"
 import { newOrderAtom } from "@/atoms"
 import { AnimatedButton } from "@/components/ui/button"
 
+import CreateExpenseDialog from "./CreateExpenseDialog"
 import ManageReceiveAccountDialog from "./ManageReceiveAccountDialog"
 import PaymentConfirmDialog from "./PaymentConfirmDialog"
 import ResetAllStateDialog from "./ResetAllStateDialog"
@@ -27,6 +28,7 @@ export default function ButtonsSection() {
   const [openReceiveAccountDialog, setOpenReceiveAccountDialog] =
     useState(false)
   const [openPaymentDialog, setOpenPaymentDialog] = useState(false)
+  const [openExpenseDialog, setOpenExpenseDialog] = useState(false)
 
   return (
     <>
@@ -39,7 +41,7 @@ export default function ButtonsSection() {
           <IconUser />
           {t("manage_receive_account_btn")}
         </AnimatedButton>
-        <AnimatedButton>
+        <AnimatedButton onClick={() => setOpenExpenseDialog(true)}>
           <IconReceipt />
           {t("add_expense_btn")}
         </AnimatedButton>
@@ -79,6 +81,10 @@ export default function ButtonsSection() {
       <PaymentConfirmDialog
         open={openPaymentDialog}
         onOpenChange={setOpenPaymentDialog}
+      />
+      <CreateExpenseDialog
+        open={openExpenseDialog}
+        onOpenChange={setOpenExpenseDialog}
       />
     </>
   )

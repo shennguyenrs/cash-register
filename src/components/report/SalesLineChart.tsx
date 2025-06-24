@@ -82,7 +82,7 @@ export default function SalesLineChart() {
           </SelectContent>
         </Select>
       </div>
-      <div className="h-[400px] w-full p-4">
+      <div className="h-[400px] w-full px-16 py-4">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />

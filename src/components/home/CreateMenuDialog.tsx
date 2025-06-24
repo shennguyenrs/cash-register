@@ -78,7 +78,7 @@ export default function CreateMenuDialog({
               <Input {...register("name")} id="menu-name" />
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="nemu-price">{t("form_menu_price")}</Label>
+              <Label htmlFor="menu-price">{t("form_menu_price")}</Label>
               <Controller
                 control={control}
                 name="price"

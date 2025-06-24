@@ -5,7 +5,15 @@ export const MenuSchema = z.object({
   price: z.string().refine((val) => isNaN(Number(val)) === false),
 })
 
+export const ExpenseSchema = z.object({
+  name: z.string(),
+  price: z.string().refine((val) => isNaN(Number(val)) === false),
+  received_account: z.string().refine((val) => Boolean(val)),
+})
+
 export type MenuType = z.infer<typeof MenuSchema>
+
+export type ExpenseType = z.infer<typeof ExpenseSchema>
 
 export interface MenuItem extends MenuType {
   id: string
