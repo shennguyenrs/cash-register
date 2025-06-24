@@ -66,7 +66,7 @@ export default function PaymentConfirmDialog({
       recived_account: selectedAccount,
     }
 
-    setOrderRecords((prev) => [...prev, order])
+    setOrderRecords((prev) => [order, ...prev])
     setNewOrder([])
     onOpenChange(false)
   }

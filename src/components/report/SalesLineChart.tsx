@@ -23,7 +23,9 @@ import { parseCreatedAt } from "@/lib/utils"
 
 export default function SalesLineChart() {
   const { t } = useTranslation("report")
+
   const orderRecords = useAtomValue(orderRecordsAtom)
+
   const [timeRange, setTimeRange] = useState("6")
 
   function processData() {
@@ -64,8 +66,8 @@ export default function SalesLineChart() {
   const chartData = processData()
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-end gap-2">
+    <>
+      <div className="flex items-center justify-end gap-2 pr-4">
         <span>{t("time_range")}</span>
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger className="w-40">
@@ -80,7 +82,7 @@ export default function SalesLineChart() {
           </SelectContent>
         </Select>
       </div>
-      <div className="h-[400px] w-full">
+      <div className="h-[400px] w-full p-4">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -90,12 +92,12 @@ export default function SalesLineChart() {
             <Line
               type="monotone"
               dataKey="sales"
-              stroke="#8884d8"
+              stroke="#0a0a0a"
               strokeWidth={2}
             />
           </LineChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </>
   )
 }
