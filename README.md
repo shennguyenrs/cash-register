@@ -1,54 +1,92 @@
-# React + TypeScript + Vite
+# Cash Register
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern point-of-sale (POS) system built with React, TypeScript, and Vite. This application provides a user-friendly interface for managing sales, expenses, and generating reports.
 
-Currently, two official plugins are available:
+![Home Page](./images/home.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- 🛍️ **Menu Management**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  - Add, edit, and delete menu items
+  - Quick search functionality
+  - Real-time price calculations
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- 💰 **Order Processing**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+  - Intuitive numpad interface
+  - Multiple items per order
+  - Order preview and confirmation
+  - Payment processing with multiple payment accounts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- 📊 **Reporting**
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+  - Sales line charts
+  - Detailed order records
+  - Export/Import data via CSV
+  - Refund management
+
+- 💸 **Expense Management**
+
+  - Track expenses
+  - Manage receiving accounts
+  - Expense categorization
+
+- 🌐 **Internationalization**
+  - Multi-language support
+  - Easy language switching
+  - Extensible translation system
+
+## Tech Stack
+
+- **Frontend**: React, TypeScript
+- **State Management**: Jotai
+- **Routing**: TanStack Router
+- **UI Components**: Radix UI, TailwindCSS
+- **Charts**: Recharts
+- **Form Handling**: React Hook Form, Zod
+- **Internationalization**: i18next
+- **Build Tool**: Vite
+
+## Getting Started
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+4. Build for production:
+   ```bash
+   npm run build
+   ```
+
+## Data Management
+
+- Data is persisted locally using browser storage
+- Import/Export functionality via CSV files
+- Automatic data backup and restoration
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request
+
+## License
+
+This project is private and not open for public use.
+
+## Development
+
+The project uses several modern development tools and practices:
+
+- ESLint for code linting
+- Prettier for code formatting
+- TypeScript for type safety
+- Vite for fast development and building
