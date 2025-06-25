@@ -1,4 +1,11 @@
 {
   "last_hours": "Last {{hours}} hours",
-  "time_range": "Time range"
+  "time_range": "Time range",
+  "column_date": "Creation Date",
+  "column_received_account": "Received Account",
+  "column_total": "Total",
+  "column_items": "Items",
+  "column_actions": "Actions",
+  "order_count": "Total orders",
+  "total_sales": "Total sales"
 }

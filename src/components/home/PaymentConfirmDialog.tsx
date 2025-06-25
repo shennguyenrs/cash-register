@@ -99,13 +99,15 @@ export default function PaymentConfirmDialog({
         </Select>
         <DialogFooter>
           <DialogClose asChild>
-            <AnimatedButton variant="outline">{t("close_btn")}</AnimatedButton>
+            <AnimatedButton variant="outline">
+              {t("common:close_btn")}
+            </AnimatedButton>
           </DialogClose>
           <AnimatedButton
             onClick={handleConfirmPayment}
             disabled={receiveAccount.length === 0}
           >
-            {t("confirm_btn")}
+            {t("common:confirm_btn")}
           </AnimatedButton>
         </DialogFooter>
       </DialogContent>

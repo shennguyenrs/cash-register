@@ -1,1 +1,20 @@
-{}
+{
+  "report_btn": "Report",
+  "manage_receive_account_btn": "Manage Receive Account",
+  "add_expense_btn": "Add Expense",
+  "download_csv_btn": "Download CSV",
+  "upload_csv_btn": "Upload CSV",
+  "reset_btn": "Reset",
+  "pay_btn": "Pay",
+  "create_expense_form_title": "Create Expense",
+  "form_expense_name": "Expense Description",
+  "form_expense_price": "Price",
+  "form_expense_receive_account": "Receive Account",
+  "payment_select_account_placeholder": "Select Account",
+  "manage_receive_account_dialog_title": "Manage Receive Account",
+  "manage_receive_account_dialog_desc": "Current receive account list",
+  "payment_confirm_dialog_title": "Confirm Payment",
+  "payment_confirm_dialog_desc": "Are you sure you want to pay?",
+  "reset_all_state_dialog_title": "Reset All State",
+  "reset_all_state_dialog_desc": "Are you sure you want to reset all state? This action cannot be undone."
+}

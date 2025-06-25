@@ -42,10 +42,12 @@ export default function ResetAllStatesDaialog({
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <AnimatedButton variant="outline">{t("cancel_btn")}</AnimatedButton>
+            <AnimatedButton variant="outline">
+              {t("common:cancel_btn")}
+            </AnimatedButton>
           </DialogClose>
           <AnimatedButton onClick={handleConfirm}>
-            {t("confirm_btn")}
+            {t("common:confirm_btn")}
           </AnimatedButton>
         </DialogFooter>
       </DialogContent>

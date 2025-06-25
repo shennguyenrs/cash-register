@@ -69,16 +69,22 @@ export default function CreateMenuDialog({
       <form onSubmit={handleFormSubmit}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>{t("create_menu_form_title")}</DialogTitle>
+            <DialogTitle>
+              {t("menu_section:create_menu_form_title")}
+            </DialogTitle>
             <DialogDescription></DialogDescription>
           </DialogHeader>
           <div className="grid gap-4">
             <div className="grid gap-3">
-              <Label htmlFor="menu-name">{t("form_menu_name")}</Label>
+              <Label htmlFor="menu-name">
+                {t("menu_section:form_menu_name")}
+              </Label>
               <Input {...register("name")} id="menu-name" />
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="menu-price">{t("form_menu_price")}</Label>
+              <Label htmlFor="menu-price">
+                {t("menu_section:form_menu_price")}
+              </Label>
               <Controller
                 control={control}
                 name="price"
@@ -97,11 +103,11 @@ export default function CreateMenuDialog({
           <DialogFooter>
             <DialogClose asChild>
               <AnimatedButton variant="outline">
-                {t("cancel_btn")}
+                {t("common:cancel_btn")}
               </AnimatedButton>
             </DialogClose>
             <AnimatedButton onClick={handleFormSubmit}>
-              {t("create_btn")}
+              {t("common:create_btn")}
             </AnimatedButton>
           </DialogFooter>
         </DialogContent>

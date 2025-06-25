@@ -1,1 +1,7 @@
-{}
+{
+  "create_menu_form_title": "Create Menu",
+  "form_menu_name": "Menu Description",
+  "form_menu_price": "Price",
+  "no_menu_available": "No menu available",
+  "search_menu_placeholder": "Search menu"
+}

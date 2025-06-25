@@ -41,7 +41,7 @@ export default function CreateExpenseDialog({
   open,
   onOpenChange,
 }: CreateExpenseDialogProps) {
-  const { t } = useTranslation(["home", "common", "menu_section"])
+  const { t } = useTranslation(["home", "common"])
 
   const setOrderRecords = useSetAtom(orderRecordsAtom)
   const receiveAccount = useAtomValue(receivedAccountAtom)
@@ -146,11 +146,11 @@ export default function CreateExpenseDialog({
           <DialogFooter>
             <DialogClose asChild>
               <AnimatedButton variant="outline">
-                {t("cancel_btn")}
+                {t("common:cancel_btn")}
               </AnimatedButton>
             </DialogClose>
             <AnimatedButton onClick={handleFormSubmit}>
-              {t("create_btn")}
+              {t("common:create_btn")}
             </AnimatedButton>
           </DialogFooter>
         </DialogContent>

@@ -95,7 +95,7 @@ export default function OrderPreview() {
           </AnimatedButton>
         )}
         <div className="flex justify-between text-xl font-bold">
-          <p>{t("total")}</p>
+          <p>{t("preview_order_section:total")}</p>
           <p>€ {total.toFixed(2)}</p>
         </div>
       </div>

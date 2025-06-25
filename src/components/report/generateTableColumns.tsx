@@ -63,7 +63,7 @@ export default function generateTableColumns(t: TFunction) {
     },
     {
       accessorKey: "recived_account",
-      header: t("column_recived_account"),
+      header: t("column_received_account"),
       cell: ({ row }) => {
         const recivedAccount = row.getValue("recived_account") as string
         const total = row.getValue("total") as number

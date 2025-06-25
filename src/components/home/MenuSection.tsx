@@ -84,7 +84,7 @@ export default function MenuSection() {
       >
         <Input
           type="text"
-          placeholder={t("search_menu_placeholder")}
+          placeholder={t("menu_section:search_menu_placeholder")}
           value={inputValue}
           onChange={handleOnSearchChange}
         />

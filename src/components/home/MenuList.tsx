@@ -15,7 +15,9 @@ export default function MenuList({ items }: MenuListProps) {
   if (items.length === 0) {
     return (
       <div className="flex justify-center pt-2">
-        <p className="text-neutral-500 italic">{t("no_menu_available")}</p>
+        <p className="text-neutral-500 italic">
+          {t("menu_section:no_menu_available")}
+        </p>
       </div>
     )
   }

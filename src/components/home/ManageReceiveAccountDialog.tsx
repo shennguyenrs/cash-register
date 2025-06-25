@@ -67,7 +67,9 @@ export default function ManageReceiveAccountDialog({
         </div>
         <DialogFooter>
           <DialogClose asChild>
-            <AnimatedButton variant="outline">{t("close_btn")}</AnimatedButton>
+            <AnimatedButton variant="outline">
+              {t("common:close_btn")}
+            </AnimatedButton>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
