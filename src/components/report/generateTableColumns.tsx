@@ -21,6 +21,8 @@ export default function generateTableColumns(t: TFunction) {
           </div>
         )
       },
+      sortingFn: "datetime",
+      enableSorting: true,
     },
     {
       accessorKey: "items",
@@ -43,6 +45,7 @@ export default function generateTableColumns(t: TFunction) {
           </div>
         )
       },
+      enableSorting: false,
     },
     {
       accessorKey: "total",
@@ -51,10 +54,12 @@ export default function generateTableColumns(t: TFunction) {
         const total = row.getValue("total") as number
         return (
           <div className={cn([total < 0 ? "text-red-500" : ""])}>
-            € {total.toFixed(2)}
+            {total.toFixed(2)}
           </div>
         )
       },
+      sortingFn: "alphanumeric",
+      enableSorting: true,
     },
     {
       accessorKey: "recived_account",
@@ -68,10 +73,13 @@ export default function generateTableColumns(t: TFunction) {
           </div>
         )
       },
+      sortingFn: "text",
+      enableSorting: true,
     },
     {
       header: t("column_actions"),
       cell: ({ row }) => <ActionButtons row={row} />,
+      enableSorting: false,
     },
   ] as ColumnDef<OrderRecord>[]
 }
