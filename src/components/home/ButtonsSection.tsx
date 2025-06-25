@@ -7,12 +7,22 @@ import {
   IconUser,
 } from "@tabler/icons-react"
 import { useNavigate } from "@tanstack/react-router"
-import { useAtomValue } from "jotai"
-import { useState } from "react"
+import { useAtomValue, useSetAtom } from "jotai"
+import { useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { toast } from "sonner"
 
-import { newOrderAtom } from "@/atoms"
+import {
+  menuListAtom,
+  newOrderAtom,
+  orderRecordsAtom,
+  receivedAccountAtom,
+} from "@/atoms"
 import { AnimatedButton } from "@/components/ui/button"
+import {
+  downloadOrderRecordsAsCSV,
+  uploadCSVAndPopulateAtoms,
+} from "@/lib/csvUtils"
 
 import CreateExpenseDialog from "./CreateExpenseDialog"
 import ManageReceiveAccountDialog from "./ManageReceiveAccountDialog"
@@ -21,7 +31,6 @@ import ResetAllStateDialog from "./ResetAllStateDialog"
 
 export default function ButtonsSection() {
   const { t } = useTranslation("home")
-  const currentOrder = useAtomValue(newOrderAtom)
   const navigate = useNavigate()
 
   const [openResetDialog, setOpenResetDialog] = useState(false)
@@ -29,6 +38,39 @@ export default function ButtonsSection() {
     useState(false)
   const [openPaymentDialog, setOpenPaymentDialog] = useState(false)
   const [openExpenseDialog, setOpenExpenseDialog] = useState(false)
+
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const currentOrder = useAtomValue(newOrderAtom)
+  const orderRecords = useAtomValue(orderRecordsAtom)
+  const setMenuList = useSetAtom(menuListAtom)
+  const setReceivedAccounts = useSetAtom(receivedAccountAtom)
+  const setOrderRecords = useSetAtom(orderRecordsAtom)
+
+  function handleDownload() {
+    if (orderRecords.length === 0) {
+      toast.error(t("no_orders_to_download"))
+      return
+    }
+    downloadOrderRecordsAsCSV(orderRecords)
+  }
+
+  function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (file) {
+      uploadCSVAndPopulateAtoms(
+        file,
+        setMenuList,
+        setReceivedAccounts,
+        setOrderRecords,
+      )
+        .then(() => toast.success(t("upload_success_toast")))
+        .catch((err) => {
+          toast.error(t("upload_failed_toast"))
+          console.error(err)
+        })
+    }
+  }
 
   return (
     <>
@@ -45,14 +87,23 @@ export default function ButtonsSection() {
           <IconReceipt />
           {t("add_expense_btn")}
         </AnimatedButton>
-        <AnimatedButton>
+        <AnimatedButton onClick={handleDownload}>
           <IconDownload />
           {t("download_csv_btn")}
         </AnimatedButton>
-        <AnimatedButton>
-          <IconUpload />
-          {t("upload_csv_btn")}
-        </AnimatedButton>
+        <label>
+          <AnimatedButton onClick={() => inputRef.current?.click()}>
+            <IconUpload />
+            {t("upload_csv_btn")}
+          </AnimatedButton>
+          <input
+            ref={inputRef}
+            type="file"
+            accept=".csv"
+            style={{ display: "none" }}
+            onChange={handleUpload}
+          />
+        </label>
         <AnimatedButton
           onClick={() => setOpenResetDialog(true)}
           variant="destructive"

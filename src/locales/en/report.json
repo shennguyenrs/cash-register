@@ -7,5 +7,6 @@
   "column_items": "Items",
   "column_actions": "Actions",
   "order_count": "Total orders",
-  "total_sales": "Total sales"
+  "total_sales": "Total sales",
+  "no_records": "No records found"
 }
