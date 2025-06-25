@@ -2,6 +2,7 @@ import { format } from "date-fns"
 import { useAtom, useAtomValue, useSetAtom } from "jotai"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import { toast } from "sonner"
 import { v4 as uuid } from "uuid"
 
 import {
@@ -70,6 +71,7 @@ export default function PaymentConfirmDialog({
     setOrderRecords((prev) => [order, ...prev])
     setNewOrder([])
     onOpenChange(false)
+    toast.success(t("payment_success_toast"))
   }
 
   return (
@@ -105,7 +107,7 @@ export default function PaymentConfirmDialog({
           </DialogClose>
           <AnimatedButton
             onClick={handleConfirmPayment}
-            disabled={receiveAccount.length === 0}
+            disabled={receiveAccount.length === 0 || selectedAccount === ""}
           >
             {t("common:confirm_btn")}
           </AnimatedButton>
