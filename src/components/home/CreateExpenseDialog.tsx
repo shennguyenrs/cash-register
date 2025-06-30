@@ -62,7 +62,7 @@ export default function CreateExpenseDialog({
           items: [
             {
               id: uuid(),
-              name: values.name,
+              name: `expense ${values.name}`,
               quantity: "-1",
               price: values.price,
             },

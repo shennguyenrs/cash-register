@@ -28,7 +28,7 @@ export default function ActionButtons({ row }: ActionButtonsProps) {
       items: [
         {
           id: uuid(),
-          name: id,
+          name: `refund ${id}`,
           quantity: "-1",
           price: total.toString(),
         },
@@ -54,7 +54,10 @@ export default function ActionButtons({ row }: ActionButtonsProps) {
   }
 
   function handleRemoveOrder() {
-    const originalOrderId = row.original.items[0].name
+    const itemName = row.original.items[0].name
+    const originalOrderId = itemName.startsWith("refund ")
+      ? itemName.substring(7)
+      : itemName
     const originalOrderIdx = orderRecords.findIndex(
       (order) => order.id === originalOrderId,
     )

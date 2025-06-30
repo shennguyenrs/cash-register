@@ -8,5 +8,7 @@
   "column_actions": "Actions",
   "order_count": "Total orders",
   "total_sales": "Total sales",
+  "total_refunds": "Total refunds",
+  "total_expenses": "Total expenses",
   "no_records": "No records found"
 }

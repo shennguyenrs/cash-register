@@ -11,19 +11,17 @@ export const Route = createFileRoute("/report")({
 
 function Report() {
   return (
-    <div className="h-screen w-screen">
-      <div className="pt-4 pl-4">
-        <GoBackButton />
-      </div>
-      <SalesLineChart />
-      <div className="grid grid-cols-8 gap-2 p-4">
+    <div className="h-screen w-screen p-4">
+      <GoBackButton />
+      <div className="grid grid-cols-8 gap-2">
+        <div className="col-span-7">
+          <SalesLineChart />
+        </div>
         <div className="col-span-1">
           <TotalOrderPreviewPanel />
         </div>
-        <div className="col-span-7">
-          <OrderRecordsTable />
-        </div>
       </div>
+      <OrderRecordsTable />
     </div>
   )
 }
