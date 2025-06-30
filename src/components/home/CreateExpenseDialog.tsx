@@ -28,7 +28,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { ExpenseSchema, type ExpenseType, type OrderRecord } from "@/types"
+import {
+  ExpenseSchema,
+  type ExpenseType,
+  type OrderRecord,
+  TRANSACTION_TYPE,
+} from "@/types"
 
 interface CreateExpenseDialogProps {
   open: boolean
@@ -62,7 +67,7 @@ export default function CreateExpenseDialog({
           items: [
             {
               id: uuid(),
-              name: `expense ${values.name}`,
+              name: `${TRANSACTION_TYPE.EXPENSE} ${values.name}`,
               quantity: "-1",
               price: values.price,
             },

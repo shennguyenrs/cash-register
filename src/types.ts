@@ -31,3 +31,8 @@ export interface OrderRecord {
   recived_account: string
   is_refunded: boolean
 }
+
+export const TRANSACTION_TYPE = {
+  EXPENSE: "EXPENSE",
+  REFUND: "REFUND",
+}

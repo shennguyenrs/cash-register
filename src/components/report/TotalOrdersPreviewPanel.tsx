@@ -2,6 +2,7 @@ import { useAtomValue } from "jotai"
 import { useTranslation } from "react-i18next"
 
 import { orderRecordsAtom } from "@/atoms"
+import { TRANSACTION_TYPE } from "@/types"
 
 export default function TotalOrderPreviewPanel() {
   const { t } = useTranslation("report")
@@ -13,11 +14,15 @@ export default function TotalOrderPreviewPanel() {
     (acc, record) => {
       const isRefund =
         record.total < 0 &&
-        record.items.some((item) => item.name.startsWith("refund "))
+        record.items.some((item) =>
+          item.name.startsWith(`${TRANSACTION_TYPE.REFUND} `),
+        )
 
       const isExpense =
         record.total < 0 &&
-        record.items.some((item) => item.name.startsWith("expense "))
+        record.items.some((item) =>
+          item.name.startsWith(`${TRANSACTION_TYPE.EXPENSE} `),
+        )
 
       const isSale = record.total > 0
 

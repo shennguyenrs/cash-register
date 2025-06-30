@@ -6,7 +6,7 @@ import { v4 as uuid } from "uuid"
 
 import { orderRecordsAtom } from "@/atoms"
 import { AnimatedButton } from "@/components/ui/button"
-import type { OrderRecord } from "@/types"
+import { type OrderRecord, TRANSACTION_TYPE } from "@/types"
 
 interface ActionButtonsProps {
   row: Row<OrderRecord>
@@ -28,7 +28,7 @@ export default function ActionButtons({ row }: ActionButtonsProps) {
       items: [
         {
           id: uuid(),
-          name: `refund ${id}`,
+          name: `${TRANSACTION_TYPE.REFUND} ${id}`,
           quantity: "-1",
           price: total.toString(),
         },
@@ -55,7 +55,7 @@ export default function ActionButtons({ row }: ActionButtonsProps) {
 
   function handleRemoveOrder() {
     const itemName = row.original.items[0].name
-    const originalOrderId = itemName.startsWith("refund ")
+    const originalOrderId = itemName.startsWith(`${TRANSACTION_TYPE.REFUND} `)
       ? itemName.substring(7)
       : itemName
     const originalOrderIdx = orderRecords.findIndex(
