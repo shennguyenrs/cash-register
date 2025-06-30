@@ -19,6 +19,7 @@
   "reset_all_state_dialog_desc": "Are you sure you want to reset all state? This action cannot be undone.",
   "payment_success_toast": "Payment confirm successfully",
   "no_orders_to_download": "No orders to download",
-  "upload_success_toast": "Upload order records successful!",
-  "upload_failed_toast": "Upload order records failed"
+  "upload_success_toast": "Upload order records successful",
+  "upload_failed_toast": "Upload order records failed",
+  "add_expense_success_toast": "Expense created successful"
 }

@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { NumericFormat } from "react-number-format"
+import { toast } from "sonner"
 import { v4 as uuid } from "uuid"
 
 import { orderRecordsAtom, receivedAccountAtom } from "@/atoms"
@@ -84,6 +85,7 @@ export default function CreateExpenseDialog({
 
         setOrderRecords((prev) => [order, ...prev])
         onOpenChange(false)
+        toast.success(t("add_expense_success_toast"))
       },
       (errors) => {
         console.log("Form errors:", errors)
