@@ -4,13 +4,14 @@ import {
   IconPlus,
   IconTrash,
 } from "@tabler/icons-react"
-import { useAtom } from "jotai"
+import { useAtom, useAtomValue } from "jotai"
 
 import { useState, type ChangeEvent } from "react"
 import { useTranslation } from "react-i18next"
 import { v4 as uuid } from "uuid"
 
 import {
+  isPurchasedItemAtom,
   menuListAtom,
   searchMenuItemAtom,
   selectedMenuItemIdAtom,
@@ -27,11 +28,13 @@ const MAX_HEIGHT_ITEMS = 16
 
 export default function MenuSection() {
   const { t } = useTranslation("menu_section")
+
   const [inputValue, setInputValue] = useState("")
   const [openCreateDialog, setOpenCreateDialog] = useState(false)
   const [menu, setMenu] = useAtom(menuListAtom)
   const [selectedId, setSelectedId] = useAtom(selectedMenuItemIdAtom)
   const [searchTerm, setSearchTerm] = useAtom(searchMenuItemAtom)
+  const isPurchasedItem = useAtomValue(isPurchasedItemAtom)
 
   function handleSubmit(values: MenuType) {
     // Handling editing item
@@ -72,6 +75,11 @@ export default function MenuSection() {
 
   const filteredMenu = menu.filter((i) => i.name.includes(searchTerm))
   const selectedItem = menu.find((i) => i.id === selectedId) ?? undefined
+  const isSelectedItemPurchased = selectedId
+    ? isPurchasedItem[selectedId] || false
+    : false
+  const isEditButtonDisabled = selectedId ? isSelectedItemPurchased : false
+  const isDeleteButtonDisabled = !selectedId || isSelectedItemPurchased
 
   return (
     <div className="relative overflow-y-scroll rounded-md border-2 border-solid">
@@ -91,13 +99,16 @@ export default function MenuSection() {
         <AnimatedButton onClick={handleClearSearch} disabled={!inputValue}>
           <IconBackspace />
         </AnimatedButton>
-        <AnimatedButton onClick={() => setOpenCreateDialog(true)}>
+        <AnimatedButton
+          onClick={() => setOpenCreateDialog(true)}
+          disabled={isEditButtonDisabled}
+        >
           {selectedId ? <IconPencil /> : <IconPlus />}
         </AnimatedButton>
         <AnimatedButton
           onClick={handleRemoveMenuItem}
           variant="destructive"
-          disabled={!selectedId}
+          disabled={isDeleteButtonDisabled}
         >
           <IconTrash />
         </AnimatedButton>
