@@ -2,6 +2,7 @@ import { useAtomValue } from "jotai"
 import { useTranslation } from "react-i18next"
 
 import { orderRecordsAtom } from "@/atoms"
+import { isTransactionType } from "@/lib/utils"
 import { TRANSACTION_TYPE } from "@/types"
 
 export default function TotalOrderPreviewPanel() {
@@ -12,27 +13,13 @@ export default function TotalOrderPreviewPanel() {
   // Calculate totals for different types of orders
   const totals = orderRecords.reduce(
     (acc, record) => {
-      const isRefund =
-        record.total < 0 &&
-        record.items.some((item) =>
-          item.name.startsWith(`${TRANSACTION_TYPE.REFUND} `),
-        )
-
-      const isExpense =
-        record.total < 0 &&
-        record.items.some((item) =>
-          item.name.startsWith(`${TRANSACTION_TYPE.EXPENSE} `),
-        )
-
-      const isSale = record.total > 0
-
-      if (isRefund) {
+      if (isTransactionType(record, TRANSACTION_TYPE.REFUND)) {
         acc.refunds += Math.abs(record.total)
         acc.refundCount += 1
-      } else if (isExpense) {
+      } else if (isTransactionType(record, TRANSACTION_TYPE.EXPENSE)) {
         acc.expenses += Math.abs(record.total)
         acc.expenseCount += 1
-      } else if (isSale) {
+      } else if (isTransactionType(record, TRANSACTION_TYPE.SALE)) {
         acc.sales += record.total
         acc.salesCount += 1
       }

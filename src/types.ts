@@ -35,4 +35,8 @@ export interface OrderRecord {
 export const TRANSACTION_TYPE = {
   EXPENSE: "EXPENSE",
   REFUND: "REFUND",
-}
+  SALE: "SALE",
+} as const
+
+export type TransactionType =
+  (typeof TRANSACTION_TYPE)[keyof typeof TRANSACTION_TYPE]

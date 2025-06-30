@@ -28,6 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { createTransactionName } from "@/lib/utils"
 import {
   ExpenseSchema,
   type ExpenseType,
@@ -67,7 +68,10 @@ export default function CreateExpenseDialog({
           items: [
             {
               id: uuid(),
-              name: `${TRANSACTION_TYPE.EXPENSE} ${values.name}`,
+              name: createTransactionName(
+                TRANSACTION_TYPE.EXPENSE,
+                values.name,
+              ),
               quantity: "-1",
               price: values.price,
             },

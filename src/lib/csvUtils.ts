@@ -1,7 +1,13 @@
-import Papa from "papaparse"
 import type { ParseResult } from "papaparse"
+import Papa from "papaparse"
 
-import type { OrderRecord, MenuItem, OrderItem } from "@/types"
+import {
+  type MenuItem,
+  type OrderItem,
+  type OrderRecord,
+  TRANSACTION_TYPE,
+} from "@/types"
+import { isTransactionType } from "./utils"
 
 // Download order records as CSV
 export function downloadOrderRecordsAsCSV(orderRecords: OrderRecord[]) {
@@ -103,7 +109,8 @@ export function uploadCSVAndPopulateAtoms(
         for (let i = 0; i < orderRecords.length; i++) {
           const record = orderRecords[i]
 
-          if (record.total > 0) {
+          // Only add items from sales to the menu list (not from refunds or expenses)
+          if (isTransactionType(record, TRANSACTION_TYPE.SALE)) {
             for (let j = 0; j < record.items.length; j++) {
               const item = record.items[j]
               if (!menuItems.find((m) => m.id === item.id)) {
