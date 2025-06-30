@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   CartesianGrid,
@@ -28,7 +28,8 @@ export default function SalesLineChart() {
 
   const [timeRange, setTimeRange] = useState("6")
 
-  function processData() {
+  // Memoize expensive data processing to avoid recalculating on every render
+  const chartData = useMemo(() => {
     const hours = parseInt(timeRange)
     const now = new Date()
     const timeRangeStart = new Date(now.getTime() - hours * 60 * 60 * 1000)
@@ -61,9 +62,7 @@ export default function SalesLineChart() {
     }
 
     return data
-  }
-
-  const chartData = processData()
+  }, [orderRecords, timeRange])
 
   return (
     <>

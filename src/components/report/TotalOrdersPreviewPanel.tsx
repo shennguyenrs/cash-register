@@ -1,4 +1,5 @@
 import { useAtomValue } from "jotai"
+import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
 import { orderRecordsAtom } from "@/atoms"
@@ -10,33 +11,38 @@ export default function TotalOrderPreviewPanel() {
 
   const orderRecords = useAtomValue(orderRecordsAtom)
 
-  // Calculate totals for different types of orders
-  const totals = orderRecords.reduce(
-    (acc, record) => {
-      if (isTransactionType(record, TRANSACTION_TYPE.REFUND)) {
-        acc.refunds += Math.abs(record.total)
-        acc.refundCount += 1
-      } else if (isTransactionType(record, TRANSACTION_TYPE.EXPENSE)) {
-        acc.expenses += Math.abs(record.total)
-        acc.expenseCount += 1
-      } else if (isTransactionType(record, TRANSACTION_TYPE.SALE)) {
-        acc.sales += record.total
-        acc.salesCount += 1
-      }
+  // Memoize expensive calculations to avoid recalculating on every render
+  const { totals, ordersCount } = useMemo(() => {
+    const calculatedTotals = orderRecords.reduce(
+      (acc, record) => {
+        if (isTransactionType(record, TRANSACTION_TYPE.REFUND)) {
+          acc.refunds += Math.abs(record.total)
+          acc.refundCount += 1
+        } else if (isTransactionType(record, TRANSACTION_TYPE.EXPENSE)) {
+          acc.expenses += Math.abs(record.total)
+          acc.expenseCount += 1
+        } else if (isTransactionType(record, TRANSACTION_TYPE.SALE)) {
+          acc.sales += record.total
+          acc.salesCount += 1
+        }
 
-      return acc
-    },
-    {
-      sales: 0,
-      refunds: 0,
-      expenses: 0,
-      salesCount: 0,
-      refundCount: 0,
-      expenseCount: 0,
-    },
-  )
+        return acc
+      },
+      {
+        sales: 0,
+        refunds: 0,
+        expenses: 0,
+        salesCount: 0,
+        refundCount: 0,
+        expenseCount: 0,
+      },
+    )
 
-  const ordersCount = orderRecords.length
+    return {
+      totals: calculatedTotals,
+      ordersCount: orderRecords.length,
+    }
+  }, [orderRecords])
 
   return (
     <div className="bg-primary rounded-md p-4 text-white">
