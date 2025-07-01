@@ -75,11 +75,7 @@ export default function MenuSection() {
 
   const filteredMenu = menu.filter((i) => i.name.includes(searchTerm))
   const selectedItem = menu.find((i) => i.id === selectedId) ?? undefined
-  const isSelectedItemPurchased = selectedId
-    ? isPurchasedItem[selectedId] || false
-    : false
-  const isEditButtonDisabled = selectedId ? isSelectedItemPurchased : false
-  const isDeleteButtonDisabled = !selectedId || isSelectedItemPurchased
+  const isDeleteButtonDisabled = !selectedId || isPurchasedItem[selectedId]
 
   return (
     <div className="relative overflow-y-scroll rounded-md border-2 border-solid">
@@ -99,10 +95,7 @@ export default function MenuSection() {
         <AnimatedButton onClick={handleClearSearch} disabled={!inputValue}>
           <IconBackspace />
         </AnimatedButton>
-        <AnimatedButton
-          onClick={() => setOpenCreateDialog(true)}
-          disabled={isEditButtonDisabled}
-        >
+        <AnimatedButton onClick={() => setOpenCreateDialog(true)}>
           {selectedId ? <IconPencil /> : <IconPlus />}
         </AnimatedButton>
         <AnimatedButton

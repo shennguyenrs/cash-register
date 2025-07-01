@@ -1,10 +1,10 @@
 import { IconArrowBackUp, IconTrash } from "@tabler/icons-react"
 import type { Row } from "@tanstack/react-table"
 import { format } from "date-fns"
-import { useAtom } from "jotai"
+import { useAtom, useSetAtom } from "jotai"
 import { v4 as uuid } from "uuid"
 
-import { orderRecordsAtom } from "@/atoms"
+import { adjustStockForOrderAtom, orderRecordsAtom } from "@/atoms"
 import { AnimatedButton } from "@/components/ui/button"
 import {
   createTransactionName,
@@ -19,6 +19,7 @@ interface ActionButtonsProps {
 
 export default function ActionButtons({ row }: ActionButtonsProps) {
   const [orderRecords, setOrderRecords] = useAtom(orderRecordsAtom)
+  const adjustStock = useSetAtom(adjustStockForOrderAtom)
 
   const total = row.getValue("total") as number
   const recivedAccount = row.getValue("recived_account") as string
@@ -28,6 +29,9 @@ export default function ActionButtons({ row }: ActionButtonsProps) {
   function handleRefundOrder() {
     const timestamp = new Date()
 
+    // Restore stock for the refunded items
+    adjustStock({ orderItems: row.original.items, isAdding: true })
+
     const refundOrder: OrderRecord = {
       id: uuid(),
       items: [
@@ -36,6 +40,7 @@ export default function ActionButtons({ row }: ActionButtonsProps) {
           name: createTransactionName(TRANSACTION_TYPE.REFUND, id),
           quantity: "-1",
           price: total.toString(),
+          stock: "0",
         },
       ],
       total: total * -1,
@@ -72,6 +77,10 @@ export default function ActionButtons({ row }: ActionButtonsProps) {
 
       if (originalOrderIdx !== -1) {
         const modifiedOrders = [...orderRecords]
+        const originalOrder = modifiedOrders[originalOrderIdx]
+
+        adjustStock({ orderItems: originalOrder.items })
+
         modifiedOrders[originalOrderIdx].is_refunded = false
         setOrderRecords(modifiedOrders.filter((order) => order.id !== id))
         return

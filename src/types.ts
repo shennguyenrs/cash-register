@@ -3,6 +3,9 @@ import { z } from "zod"
 export const MenuSchema = z.object({
   name: z.string(),
   price: z.string().refine((val) => isNaN(Number(val)) === false),
+  stock: z
+    .string()
+    .refine((val) => isNaN(Number(val)) === false && Number(val) >= 0),
 })
 
 export const ExpenseSchema = z.object({

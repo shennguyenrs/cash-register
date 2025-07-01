@@ -1,5 +1,6 @@
 import { useAtom, useAtomValue } from "jotai"
 import { motion } from "motion/react"
+import { useTranslation } from "react-i18next"
 
 import { searchMenuItemAtom, selectedMenuItemIdAtom } from "@/atoms"
 import { cn } from "@/lib/utils"
@@ -10,6 +11,8 @@ interface FoodCardProps {
 }
 
 export default function FoodCard({ item }: FoodCardProps) {
+  const { t } = useTranslation("menu_section")
+
   const [selectedId, setSelectedId] = useAtom(selectedMenuItemIdAtom)
   const searchTerm = useAtomValue(searchMenuItemAtom)
 
@@ -47,12 +50,20 @@ export default function FoodCard({ item }: FoodCardProps) {
       <div
         className={cn(
           "relative min-h-[80px] rounded-md border-2 border-solid p-1",
+          Number(item.stock) <= 0 && "bg-red-200 text-red-500",
           selectedId === item.id && "bg-neutral-800 text-white",
         )}
         onClick={handleToggleSelectItem}
       >
         <p>{highlightSearchTerm(item.name, searchTerm)}</p>
-        <div className="absolute right-0 bottom-0 pr-1">
+        <div className="absolute right-0 bottom-0 flex w-full justify-between px-2">
+          <p
+            className={cn(
+              Number(item.stock) <= 0 ? "text-red-500" : "text-neutral-400",
+            )}
+          >
+            {t("stock")}: {item.stock}
+          </p>
           <p className="text-neutral-400">€ {item.price}</p>
         </div>
       </div>

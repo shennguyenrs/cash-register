@@ -75,6 +75,7 @@ export default function CreateExpenseDialog({
               ),
               quantity: "-1",
               price: values.price,
+              stock: "0",
             },
           ],
           total: Number(values.price) * -1,

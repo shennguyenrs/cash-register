@@ -1,9 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useAtomValue } from "jotai"
 import { useEffect } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { NumericFormat } from "react-number-format"
 
+import { isPurchasedItemAtom } from "@/atoms"
 import { AnimatedButton } from "@/components/ui/button"
 import {
   Dialog,
@@ -16,16 +18,16 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { MenuSchema, type MenuType } from "@/types"
+import { MenuSchema, type MenuItem, type MenuType } from "@/types"
 
 interface CreateMenuDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   onSubmit: (values: MenuType) => void
-  selectedItem?: MenuType
+  selectedItem?: MenuItem
 }
 
-const defaultValues = { name: "", price: "0" }
+const defaultValues = { name: "", price: "0", stock: "0" }
 
 export default function CreateMenuDialog({
   open,
@@ -34,6 +36,9 @@ export default function CreateMenuDialog({
   selectedItem,
 }: CreateMenuDialogProps) {
   const { t } = useTranslation(["common", "menu_section"])
+
+  const isPurchasedItem = useAtomValue(isPurchasedItemAtom)
+  const disabledEditField = isPurchasedItem[selectedItem?.id || ""]
 
   const method = useForm<MenuType>({
     defaultValues,
@@ -79,7 +84,11 @@ export default function CreateMenuDialog({
               <Label htmlFor="menu-name">
                 {t("menu_section:form_menu_name")}
               </Label>
-              <Input {...register("name")} id="menu-name" />
+              <Input
+                {...register("name")}
+                id="menu-name"
+                disabled={disabledEditField}
+              />
             </div>
             <div className="grid gap-3">
               <Label htmlFor="menu-price">
@@ -95,6 +104,26 @@ export default function CreateMenuDialog({
                     onChange={onChange}
                     customInput={Input}
                     decimalScale={2}
+                    disabled={disabledEditField}
+                  />
+                )}
+              />
+            </div>
+            <div className="grid gap-3">
+              <Label htmlFor="menu-stock">
+                {t("menu_section:form_menu_stock")}
+              </Label>
+              <Controller
+                control={control}
+                name="stock"
+                render={({ field: { onChange, name, value } }) => (
+                  <NumericFormat
+                    name={name}
+                    value={value}
+                    onChange={onChange}
+                    customInput={Input}
+                    decimalScale={0}
+                    allowNegative={false}
                   />
                 )}
               />
@@ -107,7 +136,9 @@ export default function CreateMenuDialog({
               </AnimatedButton>
             </DialogClose>
             <AnimatedButton onClick={handleFormSubmit}>
-              {t("common:create_btn")}
+              {selectedItem?.id
+                ? t("common:update_btn")
+                : t("common:create_btn")}
             </AnimatedButton>
           </DialogFooter>
         </DialogContent>

@@ -2,6 +2,8 @@
   "create_menu_form_title": "Create Menu",
   "form_menu_name": "Menu Description",
   "form_menu_price": "Price",
+  "form_menu_stock": "Stock Quantity",
   "no_menu_available": "No menu available",
-  "search_menu_placeholder": "Search menu"
+  "search_menu_placeholder": "Search menu",
+  "stock": "Stock"
 }

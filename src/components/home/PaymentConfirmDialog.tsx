@@ -6,6 +6,7 @@ import { toast } from "sonner"
 import { v4 as uuid } from "uuid"
 
 import {
+  adjustStockForOrderAtom,
   lastUsedAccountIdxAtom,
   newOrderAtom,
   orderRecordsAtom,
@@ -47,6 +48,7 @@ export default function PaymentConfirmDialog({
   )
   const [newOrder, setNewOrder] = useAtom(newOrderAtom)
   const setOrderRecords = useSetAtom(orderRecordsAtom)
+  const adjustStock = useSetAtom(adjustStockForOrderAtom)
   const [selectedAccount, setSelectedAccount] = useState(receiveAccount[0])
 
   function handleConfirmPayment() {
@@ -58,6 +60,9 @@ export default function PaymentConfirmDialog({
       0,
     )
     const timestamp = new Date()
+
+    // Deduct stock for ordered items
+    adjustStock({ orderItems: newOrder })
 
     const order: OrderRecord = {
       id: uuid(),

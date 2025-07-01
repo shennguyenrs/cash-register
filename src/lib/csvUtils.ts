@@ -76,6 +76,7 @@ export function uploadCSVAndPopulateAtoms(
             name: row.item_name,
             price: row.item_price,
             quantity: row.item_quantity,
+            stock: "0",
           }
 
           if (orderRecordsMap.has(orderId)) {
@@ -118,6 +119,7 @@ export function uploadCSVAndPopulateAtoms(
                   id: item.id,
                   name: item.name,
                   price: item.price,
+                  stock: "0",
                 })
               }
             }

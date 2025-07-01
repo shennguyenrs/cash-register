@@ -60,6 +60,40 @@ export const isPurchasedItemAtom = atom((get) => {
   return isPurchased
 })
 
+export const adjustStockForOrderAtom = atom(
+  null,
+  (
+    get,
+    set,
+    {
+      orderItems,
+      isAdding = false,
+    }: { orderItems: OrderItem[]; isAdding?: boolean },
+  ) => {
+    const menuList = get(menuListAtom)
+    const updatedMenuList = menuList.map((menuItem) => {
+      const orderItem = orderItems.find((item) => item.id === menuItem.id)
+
+      if (orderItem) {
+        const currentStock = Number(menuItem.stock) || 0
+        const quantity = Number(orderItem.quantity) || 0
+        const newStock = isAdding
+          ? currentStock + quantity
+          : currentStock - quantity
+
+        return {
+          ...menuItem,
+          stock: String(newStock),
+        }
+      }
+
+      return menuItem
+    })
+
+    set(menuListAtom, updatedMenuList)
+  },
+)
+
 export const resetAllAtoms = atom(null, (_, set) => {
   set(menuListAtom, [])
   set(selectedMenuItemIdAtom, "")
