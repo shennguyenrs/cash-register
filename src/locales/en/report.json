@@ -10,5 +10,8 @@
   "total_sales": "Total sales",
   "total_refunds": "Total refunds",
   "total_expenses": "Total expenses",
-  "no_records": "No records found"
+  "no_records": "No records found",
+  "top_selling_items": "Top Selling Items",
+  "quantity_sold": "Qty",
+  "no_items_sold": "No items sold yet"
 }
